@@ -62,6 +62,19 @@ const API = (() => {
     return `<span class="badge ${m.cls}"><span class="led"></span>${label || m.txt}</span>`;
   }
 
+  // ----- 시장 레짐 배지 -----
+  const REGIME = {
+    "risk-on":  { cls: "green",  txt: "risk-on" },
+    "neutral":  { cls: "slate",  txt: "neutral" },
+    "risk-off": { cls: "red",    txt: "risk-off" },
+  };
+  function regimeBadge(v) {
+    if (!v) return "";
+    const key = String(v).toLowerCase().replace(/\s*\(.*\)/, "").trim();
+    const m = REGIME[key] || { cls: "ghost", txt: v };
+    return `<span class="badge ${m.cls}"><span class="led"></span>장 ${m.txt}</span>`;
+  }
+
   // ----- 아주 작은 마크다운 → HTML (외부 의존 없음) -----
   function esc(s) {
     return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -145,5 +158,5 @@ const API = (() => {
   }
 
   return { index, marketReport, stockReport, daysAgo, relDay, freshness,
-           price, signed, verdictBadge, renderMD, nav, esc };
+           price, signed, verdictBadge, regimeBadge, renderMD, nav, esc };
 })();

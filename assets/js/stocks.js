@@ -99,6 +99,7 @@
               <span class="ticker">${API.esc(r.ticker)}</span>
               ${API.verdictBadge(r.verdict, r.verdict_label)}
               ${r.is_leader != null ? `<span class="badge ${r.is_leader ? "green" : "ghost"}">주도주 ${r.is_leader ? "YES" : "NO"}</span>` : ""}
+              ${API.regimeBadge(r.regime)}
               ${API.freshness(date)}
             </div>
           </div>
@@ -107,8 +108,10 @@
         ${r.summary ? `<div class="callout"><b>한 줄 결론.</b> ${API.esc(r.summary)}</div>` : ""}
         <div class="metrics">
           ${metric("손익비", r.rr == null ? "—" : `${r.rr}:1`)}
-          ${metric("상대강도 3M", API.signed(r.rs_3m))}
-          ${metric("상대강도 6M", API.signed(r.rs_6m))}
+          ${metric("vs시장 3M", API.signed(r.rs_3m))}
+          ${metric("vs시장 6M", API.signed(r.rs_6m))}
+          ${metric("vs섹터 3M", r.rs_sector_3m == null ? "" : `${API.signed(r.rs_sector_3m)}${r.sector_etf ? ` (${API.esc(r.sector_etf)})` : ""}`)}
+          ${metric("ATR", r.atr == null ? "" : `${r.atr}${r.atr_pct == null ? "" : ` (${r.atr_pct}%)`}`)}
           ${metric("RSI", r.rsi == null ? "—" : r.rsi)}
           ${metric("다이버전스", r.divergence === "bullish" ? "강세 ▲" : r.divergence === "bearish" ? "약세 ▼" : "없음")}
           ${metric("파동", r.wave ? API.esc(r.wave) : "")}
@@ -126,6 +129,19 @@
           ${pos.stop ? ` · 손절 ${API.price(pos.stop, r.market)}` : ""}
           ${pos.trail ? ` · ${API.esc(pos.trail)}` : ""}
         </div>` : ""}
+        ${(() => {
+          const v = r.vbp || {};
+          const hasV = v.poc != null || (v.resistance && v.resistance.length) || (v.support && v.support.length);
+          if (!hasV) return "";
+          const lvls = (arr) => (arr && arr.length) ? arr.map(p => API.price(p, r.market)).join(" · ") : "—";
+          return `<div class="callout"><b>매물대.</b>
+            ${v.poc != null ? ` POC ${API.price(v.poc, r.market)}` : ""}
+            · 위 저항 ${lvls(v.resistance)}
+            · 아래 지지 ${lvls(v.support)}</div>`;
+        })()}
+        ${(r.scenario && (r.scenario.up || r.scenario.down)) ? `<div class="callout"><b>시나리오.</b>
+          ${r.scenario.up ? ` <b>지지 시</b> ${API.esc(r.scenario.up)}` : ""}
+          ${r.scenario.down ? ` · <b>이탈 시</b> ${API.esc(r.scenario.down)}` : ""}</div>` : ""}
         ${r.credit_short ? `<div class="callout"><b>수급/신용.</b> ${API.esc(r.credit_short)}</div>` : ""}
       </div>`;
 
