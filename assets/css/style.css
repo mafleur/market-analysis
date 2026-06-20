@@ -205,3 +205,22 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .tip:hover::after { opacity: 1; visibility: visible; }
 .scenario-line { margin-top: 4px; }
 .scenario-line:first-of-type { margin-top: 2px; }
+
+/* ----- 엘리엇 파동 시각화 ----- */
+.wave-label { font-weight: 800; margin-left: 6px; color: var(--text); }
+.wave-seq { display: flex; align-items: center; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.wave-step {
+  width: 26px; height: 26px; border-radius: 50%; display: inline-flex;
+  align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
+  border: 1.5px solid var(--border); color: var(--text-3); background: var(--surface);
+}
+.wave-step.up   { border-color: #cfe0ff; color: var(--brand); }
+.wave-step.down { border-color: #f6d9b0; color: var(--orange); }
+.wave-step.active {
+  background: var(--brand); color: #fff; border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-soft); transform: scale(1.12);
+}
+.wave-step.down.active { background: var(--orange); border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-soft); }
+.wave-sep { width: 1px; height: 18px; background: var(--border); margin: 0 5px; }
+.wave-cap { margin-top: 7px; font-size: 11px; color: var(--text-3); }
+.wave-detail { margin-top: 9px; font-size: 12.5px; color: var(--text-3); line-height: 1.65; }

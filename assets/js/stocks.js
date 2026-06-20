@@ -22,6 +22,32 @@
     revttm: "TTM = Trailing Twelve Months. 가장 최근 4개 분기를 합산한 직전 12개월 실적.\n회계연도와 무관하게 항상 최신 12개월을 보여줘 분기 발표 때마다 갱신된다.",
     target: "yfinance 애널리스트 평균 목표가(targetMeanPrice) — 12개월 컨센서스 평균.\n본 분석의 손익비용 목표가와는 별개이며, 현재가가 이미 이를 추월했다면 컨센서스는 추가 상향 추정이 필요하다는 신호.",
     trail: "트레일링 스탑(추적 손절): 손절선을 올리기만 한다(절대 안 내림).\nhigher-low(직전 저점) = 최근 상승 중 찍은 '눌림목 바닥'. 신고가가 새로 날 때마다 그 직전 눌림목 바닥 아래로 손절선을 끌어올려, 이익을 보호하며 추세를 끝까지 끌고 간다.",
+    vbp: "매물대(Volume-by-Price) = 과거 거래량이 어느 '가격대'에 쌓였나.\nPOC(Point of Control): 거래량이 가장 두껍게 쌓인 단일 가격대. 자석처럼 가격을 끌어당기는 경향.\n위 저항: 현재가보다 '위'에 있는 매물대 — 거기서 물린 사람들이 본전에 팔아 위로 갈 때 벽(저항)이 된다.\n아래 지지: 현재가보다 '아래'에 있는 매물대 — 거기서 산 사람들이 방어해 떨어질 때 받침(지지)이 된다.",
+  };
+
+  // 파동 → 시각적 위치 표시 (5파 상승 - 3파 하락)
+  const waveStage = (w) => {
+    if (!w) return null;
+    let m = w.match(/([1-5])\s*파/);
+    if (m) return m[1];
+    m = w.match(/([ABCabc])\s*파/);
+    if (m) return m[1].toUpperCase();
+    return null;
+  };
+  const waveCallout = (r) => {
+    if (!r.wave) return "";
+    const cur = waveStage(r.wave);
+    const up = ["1", "2", "3", "4", "5"], down = ["A", "B", "C"];
+    const cell = (k, isUp) =>
+      `<span class="wave-step ${isUp ? "up" : "down"} ${k === cur ? "active" : ""}">${k}</span>`;
+    const seq = up.map(k => cell(k, true)).join("") + `<span class="wave-sep"></span>`
+      + down.map(k => cell(k, false)).join("");
+    return `<div class="callout"><b>파동</b>${tipMark(TIP.wave)}
+      <span class="wave-label">${API.esc(r.wave)}</span>
+      <div class="wave-seq">${seq}</div>
+      <div class="wave-cap">상승 임펄스 1·2·3·4·5  →  하락 조정 A·B·C  (파랑=상승 / 주황=하락, 채워진 원=현재 추정 위치)</div>
+      ${r.wave_detail ? `<div class="wave-detail">${API.esc(r.wave_detail)}</div>` : ""}
+    </div>`;
   };
   // 이벤트(어닝) 게이트 배지 — 실적 발표 D-day. 임박할수록 갭 리스크 경고
   const earningsBadge = (dateStr) => {
@@ -151,7 +177,6 @@
               : (r.divergence === "n/a" || r.divergence === "insufficient" || r.divergence === "unmeasurable") ? "측정 불가"
               : "없음",
               TIP.div + (r.divergence_note ? `\n\n이 종목: ${r.divergence_note}` : ""))}
-          ${metric("파동", r.wave ? API.esc(r.wave) : "", TIP.wave)}
         </div>
         <div class="metrics" style="border-top:1px solid var(--border);padding-top:14px">
           ${metric("시총", f.market_cap)}
@@ -160,6 +185,7 @@
           ${metric("Fwd PE", f.fwd_pe)}
           ${metric("목표가", f.target == null ? "" : API.price(f.target, r.market), TIP.target)}
         </div>
+        ${waveCallout(r)}
         ${(pos.entry || pos.stop || pos.trail) ? `<div class="callout">
           <b>포지션.</b>
           ${pos.entry ? ` 평단 ${API.price(pos.entry, r.market)}` : ""}
@@ -171,7 +197,7 @@
           const hasV = v.poc != null || (v.resistance && v.resistance.length) || (v.support && v.support.length);
           if (!hasV) return "";
           const lvls = (arr) => (arr && arr.length) ? arr.map(p => API.price(p, r.market)).join(" · ") : "—";
-          return `<div class="callout"><b>매물대.</b>
+          return `<div class="callout"><b>매물대</b>${tipMark(TIP.vbp)}
             ${v.poc != null ? ` POC ${API.price(v.poc, r.market)}` : ""}
             · 위 저항 ${lvls(v.resistance)}
             · 아래 지지 ${lvls(v.support)}</div>`;
