@@ -35,8 +35,13 @@ const API = (() => {
   function price(v, market) {
     if (v == null) return "—";
     const n = Number(v);
-    if (market === "US") return "$" + n.toLocaleString("en-US", { maximumFractionDigits: 2 });
-    return n.toLocaleString("ko-KR") + "원";
+    // 접두 기호형 통화
+    const PREFIX = { US: "$", HK: "HK$", CN: "¥", TW: "NT$", IN: "₹", UK: "£" };
+    if (PREFIX[market]) return PREFIX[market] + n.toLocaleString("en-US", { maximumFractionDigits: 2 });
+    // 접미 단위형 통화 (시장 → 단위)
+    const SUFFIX = { KR: "원", JP: "엔", DE: "유로", FR: "유로" };
+    const unit = SUFFIX[market] || "원";
+    return n.toLocaleString("ko-KR") + unit;
   }
   function signed(v) {
     if (v == null) return "—";
