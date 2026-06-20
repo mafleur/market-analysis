@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-20T15:49:07",
+  "generated_at": "2026-06-20T16:00:17",
   "market": {
     "latest": "2026-06-20",
     "history": [
@@ -11,12 +11,13 @@
       "name": "SK하이닉스",
       "market": "KR",
       "held": true,
-      "latest": "2026-06-18",
+      "latest": "2026-06-19",
       "verdict": "HOLD",
-      "verdict_label": "보유 지속 — 트레일링 스탑(신규진입 불가)",
-      "price": 2685000,
+      "verdict_label": "보유 지속 (트레일링) / 신규·불타기·물타기 금지",
+      "price": 2764000,
       "is_leader": true,
       "history": [
+        "2026-06-19",
         "2026-06-18",
         "2026-06-17"
       ]
@@ -25,12 +26,13 @@
       "name": "삼성전자",
       "market": "KR",
       "held": true,
-      "latest": "2026-06-18",
+      "latest": "2026-06-19",
       "verdict": "HOLD",
-      "verdict_label": "보유 지속 — 추세 유효, 트레일링 스탑",
-      "price": 362500,
+      "verdict_label": "보유 지속 — 약세 다이버전스에도 TRIM 안 함",
+      "price": 354000,
       "is_leader": true,
       "history": [
+        "2026-06-19",
         "2026-06-18",
         "2026-06-17"
       ]
