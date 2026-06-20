@@ -47,7 +47,7 @@
       <div class="wave-seq">${seq}</div>
       <div class="wave-cap">상승 임펄스 1·2·3·4·5  →  하락 조정 A·B·C  (파랑=상승 / 주황=하락, 채워진 원=현재 추정 위치)</div>
       ${r.wave_detail ? `<div class="wave-detail">${API.esc(r.wave_detail)}</div>` : ""}
-      ${r.wave_chart ? `<div class="chart-box" style="margin-top:12px"><img src="${API.esc(r.wave_chart)}" alt="엘리엇 파동 구간 차트"></div>` : ""}
+      ${r.wave_chart ? `<div class="chart-box wave-chart-box"><img src="${API.esc(r.wave_chart)}" alt="엘리엇 파동 구간 차트"></div>` : ""}
     </div>`;
   };
   // 이벤트(어닝) 게이트 배지 — 실적 발표 D-day. 임박할수록 갭 리스크 경고

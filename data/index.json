@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-20T19:46:43",
+  "generated_at": "2026-06-20T21:15:45",
   "market": {
     "latest": "2026-06-20",
     "history": [
@@ -28,7 +28,7 @@
       "held": true,
       "latest": "2026-06-19",
       "verdict": "HOLD",
-      "verdict_label": "보유 지속 — 약세 다이버전스에도 TRIM 안 함",
+      "verdict_label": "보유 지속 + 트레일링",
       "price": 354000,
       "is_leader": true,
       "history": [
@@ -43,7 +43,7 @@
       "held": false,
       "latest": "2026-06-19",
       "verdict": "AVOID",
-      "verdict_label": "신규 진입 보류 (추격 금지)",
+      "verdict_label": "신규 진입 회피 (추격 금지)",
       "price": 108600,
       "is_leader": true,
       "history": [
