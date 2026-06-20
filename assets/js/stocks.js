@@ -15,7 +15,7 @@
   // 지표 해설 (툴팁 본문)
   const TIP = {
     rr: "손익비 = (목표가-진입가) ÷ (진입가-손절가). 3:1 이상이어야 진입. 신규 진입 시나리오가 없으면(보유 지속·신규진입 비권고) 비워둔다.",
-    atr: "ATR(14): 최근 14거래일 평균 변동폭(True Range의 14일 평균).\n쓰임 ① 손절폭 = 진입가 -1.5~2 ATR(노이즈에 안 털릴 최소폭) ② 포지션 사이징(변동성 큰 종목은 자동으로 비중↓).\n방향이 아니라 '하루에 얼마나 움직이나'를 재는 변동성 지표.",
+    atr: "ATR(14): 최근 14거래일 평균 변동폭(True Range의 14일 평균).\n쓰임 ① 손절폭 = 진입가 -1.5~2 ATR(노이즈에 안 털릴 최소폭) ② 포지션 사이징(변동성 큰 종목은 자동으로 비중↓).\n변동성 레짐(확대/축소/안정) = 현재 ATR%가 최근 60일 평균 대비 어느 방향인지. 확대 = 손절폭·갭 리스크↑, 축소 = 변동성 수축(돌파 대기).",
     rsi: "RSI(14): 0~100. 70↑ 과매수, 30↓ 과매도.\n단독으로는 매매 근거가 약하다 — 강한 추세는 과매수에 오래 머문다. 추세·거래량의 보조 확인용, 핵심은 다이버전스다.",
     div: "RSI 다이버전스 = 가격과 RSI 방향 불일치(추세 전환 조기경보).\n강세 ▲: 가격 저점↓인데 RSI 저점↑ (하락 모멘텀 둔화).\n약세 ▼: 가격 고점↑인데 RSI 고점↓ (상승 모멘텀 둔화).\n없음: 마지막 두 스윙이 가격·RSI 같은 방향 = 모멘텀이 추세를 확인(건강).\n측정 불가: 비교할 스윙 고점/저점이 부족(신고가 직진 등). 보조 참고일 뿐 단독 매매 금지.",
     wave: "엘리엇 파동(보조 참고). 5파 상승 + 3파(A-B-C) 하락의 반복.\n1파 첫 반등 · 2파 되돌림 · 3파 가장 강함(불타기) · 4파 조정 · 5파 마지막(축소).\nA·B·C 하락 조정. 카운트는 확률 추정이며 손절선이 항상 우선.",
@@ -23,6 +23,16 @@
     target: "yfinance 애널리스트 평균 목표가(targetMeanPrice) — 12개월 컨센서스 평균.\n본 분석의 손익비용 목표가와는 별개이며, 현재가가 이미 이를 추월했다면 컨센서스는 추가 상향 추정이 필요하다는 신호.",
     trail: "트레일링 스탑(추적 손절): 손절선을 올리기만 한다(절대 안 내림).\nhigher-low(직전 저점) = 최근 상승 중 찍은 '눌림목 바닥'. 신고가가 새로 날 때마다 그 직전 눌림목 바닥 아래로 손절선을 끌어올려, 이익을 보호하며 추세를 끝까지 끌고 간다.",
   };
+  // 이벤트(어닝) 게이트 배지 — 실적 발표 D-day. 임박할수록 갭 리스크 경고
+  const earningsBadge = (dateStr) => {
+    if (!dateStr) return "";
+    const du = -API.daysAgo(dateStr); // 미래면 양수
+    if (du < 0) return ""; // 이미 발표됨
+    const cls = du <= 7 ? "red" : du <= 21 ? "orange" : "slate";
+    const tip = `다음 실적 발표 ${dateStr} (D-${du}). 실적 직전 신규 진입은 갭 리스크로 비중 축소·보류 권고(이벤트 게이트). 손절선이 갭에 무력화될 수 있다.`;
+    return `<span class="badge ${cls}"><span class="led"></span>실적 D-${du}</span>${tipMark(tip)}`;
+  };
+
   const vsTip = (m) => `기준 지수: ${benchLabel(m)}. 종목 누적수익률 ÷ 지수 누적수익률로 시장 대비 초과수익을 본다. (미국주식=S&P500, 한국=KOSPI, 일본=닛케이225 등 시장별 자동 적용.)`;
 
   let idx;
@@ -117,12 +127,12 @@
       <div class="card pad-lg">
         <div class="dh">
           <div>
-            <div class="title"><span class="tag-mkt ${r.market || ""}">${r.market || ""}</span>${API.esc(r.name || r.ticker)}</div>
+            <div class="title"><span class="tag-mkt ${r.market || ""}">${r.market || ""}</span>${API.esc(r.name || r.ticker)}<span class="ticker">${API.esc(r.ticker)}</span></div>
             <div class="meta">
-              <span class="ticker">${API.esc(r.ticker)}</span>
               ${API.verdictBadge(r.verdict, r.verdict_label)}
               ${r.is_leader != null ? `<span class="badge ${r.is_leader ? "green" : "ghost"}">주도주 ${r.is_leader ? "YES" : "NO"}</span>` : ""}
               ${API.regimeBadge(r.regime)}
+              ${earningsBadge(r.next_earnings)}
               ${API.freshness(date)}
             </div>
           </div>
@@ -134,8 +144,7 @@
           ${metric(`vs시장 3M·${benchLabel(r.market)}`, API.signed(r.rs_3m), vsTip(r.market))}
           ${metric(`vs시장 6M·${benchLabel(r.market)}`, API.signed(r.rs_6m), vsTip(r.market))}
           ${metric("vs섹터 3M", r.rs_sector_3m == null ? "" : `${API.signed(r.rs_sector_3m)}${r.sector_etf ? ` (${API.esc(r.sector_etf)})` : ""}`)}
-          ${metric("ATR", r.atr == null ? "" : `${r.atr}${r.atr_pct == null ? "" : ` (${r.atr_pct}%)`}`, TIP.atr)}
-          ${metric("RSI", r.rsi == null ? "—" : r.rsi, TIP.rsi)}
+          ${metric("ATR", r.atr == null ? "" : `${r.atr}${r.atr_pct == null ? "" : ` (${r.atr_pct}%)`}${r.atr_trend ? ` · ${API.esc(r.atr_trend)}` : ""}`, TIP.atr)}
           ${metric("다이버전스",
               r.divergence === "bullish" ? "강세 ▲"
               : r.divergence === "bearish" ? "약세 ▼"
