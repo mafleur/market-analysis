@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-20T16:00:17",
+  "generated_at": "2026-06-20T16:18:46",
   "market": {
     "latest": "2026-06-20",
     "history": [
@@ -35,6 +35,19 @@
         "2026-06-19",
         "2026-06-18",
         "2026-06-17"
+      ]
+    },
+    "285A.T": {
+      "name": "키오시아 (Kioxia Holdings)",
+      "market": "JP",
+      "held": false,
+      "latest": "2026-06-19",
+      "verdict": "AVOID",
+      "verdict_label": "신규 진입 보류 (추격 금지)",
+      "price": 108600,
+      "is_leader": true,
+      "history": [
+        "2026-06-19"
       ]
     }
   },
