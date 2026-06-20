@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-06-20T15:15:41",
+  "market": {
+    "latest": null,
+    "history": []
+  },
+  "stocks": {
+    "000660.KS": {
+      "name": "SK하이닉스",
+      "market": "KR",
+      "held": true,
+      "latest": "2026-06-17",
+      "verdict": "HOLD",
+      "verdict_label": "보유 지속 + 분할 익절",
+      "price": 2521000,
+      "is_leader": true,
+      "history": [
+        "2026-06-17"
+      ]
+    },
+    "005930.KS": {
+      "name": "삼성전자",
+      "market": "KR",
+      "held": true,
+      "latest": "2026-06-17",
+      "verdict": "HOLD",
+      "verdict_label": "보유 지속",
+      "price": 346500,
+      "is_leader": true,
+      "history": [
+        "2026-06-17"
+      ]
+    }
+  },
+  "holdings": [
+    "000660.KS",
+    "005930.KS"
+  ]
+}
