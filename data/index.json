@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-20T21:15:45",
+  "generated_at": "2026-06-21T00:52:52",
   "market": {
     "latest": "2026-06-20",
     "history": [
@@ -35,6 +35,32 @@
         "2026-06-19",
         "2026-06-18",
         "2026-06-17"
+      ]
+    },
+    "009150.KS": {
+      "name": "삼성전기",
+      "market": "KR",
+      "held": false,
+      "latest": "2026-06-19",
+      "verdict": "AVOID",
+      "verdict_label": "신규 추격 진입 불가 (손익비 미달) / 보유자 트레일링 유지",
+      "price": 2270000,
+      "is_leader": true,
+      "history": [
+        "2026-06-19"
+      ]
+    },
+    "064350.KS": {
+      "name": "현대로템",
+      "market": "KR",
+      "held": false,
+      "latest": "2026-06-19",
+      "verdict": "AVOID",
+      "verdict_label": "신규 진입 불가 (관망)",
+      "price": 207000,
+      "is_leader": false,
+      "history": [
+        "2026-06-19"
       ]
     },
     "285A.T": {
