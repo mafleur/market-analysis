@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-22T17:16:37",
+  "generated_at": "2026-06-22T17:23:49",
   "market": {
     "latest": "2026-06-22",
     "history": [
@@ -49,6 +49,19 @@
       "is_leader": true,
       "history": [
         "2026-06-19"
+      ]
+    },
+    "010690.KS": {
+      "name": "화신",
+      "market": "KR",
+      "held": false,
+      "latest": "2026-06-22",
+      "verdict": "AVOID",
+      "verdict_label": "손익비 미달 — 진입 불가",
+      "price": 12510,
+      "is_leader": false,
+      "history": [
+        "2026-06-22"
       ]
     },
     "064350.KS": {
