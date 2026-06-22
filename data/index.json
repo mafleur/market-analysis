@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-23T00:59:31",
+  "generated_at": "2026-06-23T01:28:27",
   "market": {
     "latest": "2026-06-23",
     "history": [
@@ -90,11 +90,25 @@
       "history": [
         "2026-06-19"
       ]
+    },
+    "FLNC": {
+      "name": "Fluence Energy",
+      "market": "US",
+      "held": true,
+      "latest": "2026-06-22",
+      "verdict": "HOLD",
+      "verdict_label": "보유 유지 + 트레일링 스탑 관리",
+      "price": 25.16,
+      "is_leader": true,
+      "history": [
+        "2026-06-22"
+      ]
     }
   },
   "holdings": [
     "000660.KS",
-    "005930.KS"
+    "005930.KS",
+    "FLNC"
   ],
   "macro_snapshot": [
     {
