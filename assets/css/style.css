@@ -224,5 +224,14 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .wave-sep { width: 1px; height: 18px; background: var(--border); margin: 0 5px; }
 .wave-cap { margin-top: 7px; font-size: 11px; color: var(--text-3); }
 .wave-detail { margin-top: 9px; font-size: 12.5px; color: var(--text-3); line-height: 1.65; }
+
+/* [참고] 태그 — 보조 참고 지표(게이팅 아님) */
+.tag-ref {
+  display: inline-flex; align-items: center;
+  font-size: 9.5px; font-weight: 700; letter-spacing: .02em;
+  padding: 1px 6px; margin-left: 5px; border-radius: 4px;
+  background: var(--surface-2); color: var(--text-3); border: 1px solid var(--border);
+  vertical-align: middle; line-height: 1.5;
+}
 .wave-chart-box { margin-top: 12px; max-width: 560px; }
 .wave-chart-box img { display: block; width: 100%; height: auto; }

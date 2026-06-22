@@ -11,6 +11,11 @@
 
   // ⓘ 툴팁 마커
   const tipMark = (text) => text ? `<span class="tip" data-tip="${API.esc(text)}">i</span>` : "";
+  const refTag = `<span class="tag-ref">참고</span>`;
+  const injectRefTags = (html) => html.replace(
+    /<strong>([^<]*(?:파동|다이버전스)[^<]*)<\/strong>/g,
+    `<strong>$1</strong>${refTag}`
+  );
 
   // 지표 해설 (툴팁 본문)
   const TIP = {
@@ -42,7 +47,7 @@
       `<span class="wave-step ${isUp ? "up" : "down"} ${k === cur ? "active" : ""}">${k}</span>`;
     const seq = up.map(k => cell(k, true)).join("") + `<span class="wave-sep"></span>`
       + down.map(k => cell(k, false)).join("");
-    return `<div class="callout"><b>파동</b>${tipMark(TIP.wave)}
+    return `<div class="callout"><b>파동</b>${refTag}${tipMark(TIP.wave)}
       <span class="wave-label">${API.esc(r.wave)}</span>
       <div class="wave-seq">${seq}</div>
       <div class="wave-cap">상승 임펄스 1·2·3·4·5  →  하락 조정 A·B·C  (파랑=상승 / 주황=하락, 채워진 원=현재 추정 위치)</div>
@@ -172,7 +177,7 @@
           ${metric(`vs시장 6M·${benchLabel(r.market)}`, API.signed(r.rs_6m), vsTip(r.market))}
           ${metric("vs섹터 3M", r.rs_sector_3m == null ? "" : `${API.signed(r.rs_sector_3m)}${r.sector_etf ? ` (${API.esc(r.sector_etf)})` : ""}`)}
           ${metric("ATR", r.atr == null ? "" : `${r.atr}${r.atr_pct == null ? "" : ` (${r.atr_pct}%)`}${r.atr_trend ? ` · ${API.esc(r.atr_trend)}` : ""}`, TIP.atr)}
-          ${metric("다이버전스",
+          ${metric("다이버전스" + refTag,
               r.divergence === "bullish" ? "강세 ▲"
               : r.divergence === "bearish" ? "약세 ▼"
               : (r.divergence === "n/a" || r.divergence === "insufficient" || r.divergence === "unmeasurable") ? "측정 불가"
@@ -214,7 +219,7 @@
     if (r.report_md) html += `
       <div class="card pad-lg">
         <div class="card-head"><div class="t"><h3>분석 보고서</h3></div></div>
-        <div class="md">${API.renderMD(r.report_md)}</div>
+        <div class="md">${injectRefTags(API.renderMD(r.report_md))}</div>
       </div>`;
 
     body.innerHTML = html;
