@@ -108,6 +108,6 @@
     html += `</div>`;
   }
 
-  html += `<div class="foot">Printemps Investment · 로컬 정적 대시보드 · index 생성 ${API.esc(idx.generated_at || "")}</div>`;
+  html += `<div class="foot">MarketBullShits · 투자 대시보드 · index 생성 ${API.esc(idx.generated_at || "")}</div>`;
   app.innerHTML = html;
 })();

@@ -146,7 +146,7 @@ const API = (() => {
       `<a href="${href}" class="${active === key ? "active" : ""}">${label}</a>`;
     return `
       <div class="nav">
-        <div class="brand"><span class="dot"></span>Printemps</div>
+        <div class="brand"><span class="dot"></span>MarketBullShits</div>
         <div class="links">
           ${link("index.html", "home", "대시보드")}
           ${link("market.html", "market", "시황 분석")}
