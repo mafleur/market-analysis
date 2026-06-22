@@ -31,6 +31,24 @@
       <p>채권 · 시황 · 주요종목 최신 분석을 한눈에. 모든 카드에 분석일자가 표시됩니다.</p>
     </div>`;
 
+  // ----- 매크로 지표 스트립 -----
+  const snap = idx.macro_snapshot;
+  if (snap && snap.length) {
+    html += `<div class="macro-strip">
+      <div class="macro-head"><h3>매크로 지표</h3>${mktDate ? API.freshness(mktDate) : ""}</div>
+      <div class="macro-groups">`;
+    for (const g of snap) {
+      html += `<div class="macro-group"><div class="macro-group-label">${API.esc(g.group)}</div>`;
+      for (const [k, v] of g.items) {
+        const n = parseFloat(String(v).replace(/[^0-9.\-+]/g, ""));
+        const cls = isNaN(n) ? "" : (n < 0 ? " neg" : n > 0 ? " pos" : "");
+        html += `<div class="macro-item"><span class="k">${API.esc(k)}</span><span class="v${cls}">${API.esc(v)}</span></div>`;
+      }
+      html += `</div>`;
+    }
+    html += `</div></div>`;
+  }
+
   // ----- 채권 / 시황 -----
   html += `<div class="section-title"><h2>시장 분석</h2><span class="hint">최신 시황 보고서 요약</span></div>`;
   if (mkt) {

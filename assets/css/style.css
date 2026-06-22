@@ -179,6 +179,41 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .md th { background: var(--surface-2); font-weight: 700; }
 .md hr { border: 0; border-top: 1px solid var(--border); margin: 18px 0; }
 
+/* ---------- macro indicator strip ---------- */
+.macro-strip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 22px;
+  margin-bottom: 6px;
+}
+.macro-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.macro-head h3 {
+  margin: 0; font-size: 12px; font-weight: 800; color: var(--text-3);
+  letter-spacing: .04em; text-transform: uppercase;
+}
+.macro-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px 24px;
+}
+.macro-group-label {
+  font-size: 11px; font-weight: 700; color: var(--text-3); margin-bottom: 6px;
+  letter-spacing: .02em;
+}
+.macro-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 3px 0; font-size: 13px;
+}
+.macro-item .k { color: var(--text-2); }
+.macro-item .v { font-weight: 700; font-variant-numeric: tabular-nums; }
+.macro-item .v.neg { color: var(--red); }
+.macro-item .v.pos { color: var(--green); }
+
 /* misc */
 .empty { text-align: center; color: var(--text-3); padding: 60px 20px; font-size: 14px; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
