@@ -98,6 +98,7 @@
             <div class="price">${API.price(s.price, s.market)}</div>
             ${API.verdictBadge(s.verdict, s.verdict_label)}
           </div>
+          ${(s.stop != null || s.target != null) ? `<div class="price-levels">${s.stop != null ? `<span class="pl stop">손절 ${API.price(s.stop, s.market)}</span>` : ""}${s.target != null ? `<span class="pl target">목표 ${API.price(s.target, s.market)}</span>` : ""}</div>` : ""}
           <div class="metrics">
             <div class="metric"><span class="k">주도주</span><span class="v">${s.is_leader == null ? "—" : (s.is_leader ? "YES" : "NO")}</span></div>
           </div>

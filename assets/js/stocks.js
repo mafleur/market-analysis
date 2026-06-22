@@ -168,7 +168,10 @@
               ${API.freshness(date)}
             </div>
           </div>
-          <div style="text-align:right"><div class="price">${API.price(r.price, r.market)}</div></div>
+          <div style="text-align:right">
+            <div class="price">${API.price(r.price, r.market)}</div>
+            ${(pos.stop != null || pos.target != null) ? `<div class="price-levels" style="justify-content:flex-end">${pos.stop != null ? `<span class="pl stop">손절 ${API.price(pos.stop, r.market)}</span>` : ""}${pos.target != null ? `<span class="pl target">목표 ${API.price(pos.target, r.market)}</span>` : ""}</div>` : ""}
+          </div>
         </div>
         ${r.summary ? `<div class="callout"><b>한 줄 결론.</b> ${API.esc(r.summary)}</div>` : ""}
         <div class="metrics">
