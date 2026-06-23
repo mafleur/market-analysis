@@ -31,6 +31,22 @@
       <p>채권 · 시황 · 주요종목 최신 분석을 한눈에. 모든 카드에 분석일자가 표시됩니다.</p>
     </div>`;
 
+  // ----- 지수 스냅샷 -----
+  const indices = idx.indices;
+  if (indices && indices.length) {
+    html += `<div class="indices-strip">`;
+    for (const ix of indices) {
+      const n = parseFloat(String(ix.change).replace(/[^0-9.\-+]/g, ""));
+      const cls = isNaN(n) ? "" : (n < 0 ? " neg" : n > 0 ? " pos" : "");
+      html += `<div class="idx-item">
+        <span class="idx-name">${API.esc(ix.name)}</span>
+        <span class="idx-val">${API.esc(ix.value)}</span>
+        <span class="idx-chg${cls}">${API.esc(ix.change)}</span>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+
   // ----- 매크로 지표 스트립 -----
   const snap = idx.macro_snapshot;
   if (snap && snap.length) {

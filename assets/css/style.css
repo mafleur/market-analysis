@@ -185,6 +185,27 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .md th { background: var(--surface-2); font-weight: 700; }
 .md hr { border: 0; border-top: 1px solid var(--border); margin: 18px 0; }
 
+/* ---------- indices strip ---------- */
+.indices-strip {
+  display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap;
+}
+.idx-item {
+  flex: 1 1 0;
+  min-width: 160px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px 18px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.idx-name { font-size: 11.5px; font-weight: 700; color: var(--text-3); letter-spacing: .02em; }
+.idx-val { font-size: 20px; font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.idx-chg { font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.idx-chg.pos { color: var(--green); }
+.idx-chg.neg { color: var(--red); }
+@media (max-width: 760px) { .indices-strip { gap: 8px; } .idx-item { min-width: 140px; padding: 12px 14px; } }
+
 /* ---------- macro indicator strip ---------- */
 .macro-strip {
   background: var(--surface);

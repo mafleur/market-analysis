@@ -51,8 +51,43 @@
       .concat((r.prefer_sectors || []).map(s => `<span class="badge green">▲ ${API.esc(s)}</span>`))
       .concat((r.avoid_sectors || []).map(s => `<span class="badge red">▼ ${API.esc(s)}</span>`));
 
-    let html = `
-      <div class="card pad-lg">
+    // ── 지수 스냅샷 ──
+    let html = "";
+    const indices = r.indices;
+    if (indices && indices.length) {
+      html += `<div class="indices-strip">`;
+      for (const ix of indices) {
+        const n = parseFloat(String(ix.change).replace(/[^0-9.\-+]/g, ""));
+        const cls = isNaN(n) ? "" : (n < 0 ? " neg" : n > 0 ? " pos" : "");
+        html += `<div class="idx-item">
+          <span class="idx-name">${API.esc(ix.name)}</span>
+          <span class="idx-val">${API.esc(ix.value)}</span>
+          <span class="idx-chg${cls}">${API.esc(ix.change)}</span>
+        </div>`;
+      }
+      html += `</div>`;
+    }
+
+    // ── 매크로 지표 스트립 ──
+    const snap = r.macro_snapshot;
+    if (snap && snap.length) {
+      html += `<div class="macro-strip">
+        <div class="macro-head"><h3>매크로 지표</h3>${API.freshness(date)}</div>
+        <div class="macro-groups">`;
+      for (const g of snap) {
+        html += `<div class="macro-group"><div class="macro-group-label">${API.esc(g.group)}</div>`;
+        for (const [k, v] of g.items) {
+          const n = parseFloat(String(v).replace(/[^0-9.\-+]/g, ""));
+          const cls = isNaN(n) ? "" : (n < 0 ? " neg" : n > 0 ? " pos" : "");
+          html += `<div class="macro-item"><span class="k">${API.esc(k)}</span><span class="v${cls}">${API.esc(v)}</span></div>`;
+        }
+        html += `</div>`;
+      }
+      html += `</div></div>`;
+    }
+
+    html += `
+      <div class="card pad-lg" style="margin-top:18px">
         <div class="dh">
           <div><div class="title">시황 종합</div>
             <div class="meta">${API.freshness(date)}</div>

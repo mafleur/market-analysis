@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-23T13:45:22",
+  "generated_at": "2026-06-23T22:53:44",
   "market": {
     "latest": "2026-06-23",
     "history": [
@@ -146,6 +146,28 @@
     "000660.KS",
     "005930.KS",
     "FLNC"
+  ],
+  "indices": [
+    {
+      "name": "S&P 500",
+      "value": "7,398.13",
+      "change": "-1.00%"
+    },
+    {
+      "name": "NASDAQ",
+      "value": "25,759.91",
+      "change": "-1.55%"
+    },
+    {
+      "name": "KOSPI",
+      "value": "8,203.84",
+      "change": "-9.99%"
+    },
+    {
+      "name": "KOSDAQ",
+      "value": "891.52",
+      "change": "-7.94%"
+    }
   ],
   "macro_snapshot": [
     {
