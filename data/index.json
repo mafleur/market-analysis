@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-25T23:17:24",
+  "generated_at": "2026-06-25T23:49:54",
   "market": {
     "latest": "2026-06-25",
     "history": [
@@ -264,6 +264,64 @@
           "19.23"
         ]
       ]
+    }
+  ],
+  "event_schedule": [
+    {
+      "id": "us_pce",
+      "name": "미국 PCE 물가지수",
+      "type": "inflation",
+      "date": "2026-06-25",
+      "d_minus": 0
+    },
+    {
+      "id": "us_nfp",
+      "name": "미국 고용보고서(NFP)",
+      "type": "employment",
+      "date": "2026-07-02",
+      "d_minus": 7
+    },
+    {
+      "id": "us_cpi",
+      "name": "미국 CPI",
+      "type": "inflation",
+      "date": "2026-07-14",
+      "d_minus": 19
+    },
+    {
+      "id": "us_ppi",
+      "name": "미국 PPI",
+      "type": "inflation",
+      "date": "2026-07-15",
+      "d_minus": 20
+    },
+    {
+      "id": "bok",
+      "name": "한국은행 금리결정",
+      "type": "rate",
+      "date": "2026-07-16",
+      "d_minus": 21
+    },
+    {
+      "id": "ecb",
+      "name": "ECB 금리결정",
+      "type": "rate",
+      "date": "2026-07-23",
+      "d_minus": 28
+    },
+    {
+      "id": "fomc",
+      "name": "FOMC 금리결정",
+      "type": "rate",
+      "date": "2026-07-29",
+      "d_minus": 34
+    },
+    {
+      "id": "boj",
+      "name": "BOJ 금리결정",
+      "type": "rate",
+      "date": "2026-07-31",
+      "d_minus": 36
     }
   ]
 }

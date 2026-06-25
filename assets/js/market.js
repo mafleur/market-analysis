@@ -68,8 +68,16 @@
       html += `</div>`;
     }
 
+    // ── 이벤트 카운트다운 ──
+    let evSchedule = [];
+    try { const idxData = await API.index(); evSchedule = idxData.event_schedule || []; } catch(e) {}
+    if (evSchedule.length) {
+      html += API.renderEventStrip(evSchedule);
+    }
+
     // ── 매크로 지표 스트립 ──
     const snap = r.macro_snapshot;
+    const evByGroup = API.eventsByGroup(evSchedule, 10);
     if (snap && snap.length) {
       html += `<div class="macro-strip">
         <div class="macro-head"><h3>매크로 지표</h3>${API.freshness(date)}</div>
@@ -81,6 +89,8 @@
           const cls = isNaN(n) ? "" : (n < 0 ? " neg" : n > 0 ? " pos" : "");
           html += `<div class="macro-item"><span class="k">${API.esc(k)}</span><span class="v${cls}">${API.esc(v)}</span></div>`;
         }
+        const gev = evByGroup[g.group];
+        if (gev) { for (const ev of gev) html += API.macroEventBadge(ev); }
         html += `</div>`;
       }
       html += `</div></div>`;

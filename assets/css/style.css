@@ -241,6 +241,37 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .macro-item .v.neg { color: var(--red); }
 .macro-item .v.pos { color: var(--green); }
 
+/* ---------- event countdown ---------- */
+.event-strip {
+  display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;
+}
+.ev-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; border-radius: 999px; font-size: 12px; font-weight: 700;
+  background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow);
+}
+.ev-chip .ev-d { font-weight: 800; font-size: 11px; padding: 1px 6px; border-radius: 4px; }
+.ev-chip.imminent { border-color: var(--orange); }
+.ev-chip.imminent .ev-d { background: var(--orange-soft); color: var(--orange); }
+.ev-chip.today { border-color: var(--red); }
+.ev-chip.today .ev-d { background: var(--red-soft); color: var(--red); }
+.ev-chip.upcoming .ev-d { background: var(--surface-2); color: var(--text-2); }
+
+.macro-event {
+  font-size: 11px; font-weight: 700; padding: 3px 0; margin-top: 4px;
+  display: flex; align-items: center; gap: 5px;
+}
+.macro-event .ev-label {
+  display: inline-flex; padding: 1px 6px; border-radius: 4px;
+  font-size: 10px; font-weight: 800;
+}
+.macro-event.imminent { color: var(--orange); }
+.macro-event.imminent .ev-label { background: var(--orange-soft); color: var(--orange); }
+.macro-event.today { color: var(--red); }
+.macro-event.today .ev-label { background: var(--red-soft); color: var(--red); }
+.macro-event.near { color: var(--text-3); }
+.macro-event.near .ev-label { background: var(--surface-2); color: var(--text-2); }
+
 /* misc */
 .empty { text-align: center; color: var(--text-3); padding: 60px 20px; font-size: 14px; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }

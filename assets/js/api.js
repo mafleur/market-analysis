@@ -157,6 +157,39 @@ const API = (() => {
       </div>`;
   }
 
+  // ----- 이벤트 카운트다운 -----
+  const EVENT_GROUP = { inflation: '인플레이션', employment: '고용', rate: '유동성' };
+
+  function eventChip(ev) {
+    const cls = ev.d_minus === 0 ? 'today' : ev.d_minus <= 3 ? 'imminent' : 'upcoming';
+    const label = ev.d_minus === 0 ? '오늘' : `D-${ev.d_minus}`;
+    return `<span class="ev-chip ${cls}"><span class="ev-d">${label}</span>${esc(ev.name)}</span>`;
+  }
+
+  function eventsByGroup(schedule, maxD) {
+    const map = {};
+    for (const ev of (schedule || [])) {
+      const g = EVENT_GROUP[ev.type];
+      if (g && ev.d_minus <= maxD) {
+        if (!map[g]) map[g] = [];
+        map[g].push(ev);
+      }
+    }
+    return map;
+  }
+
+  function macroEventBadge(ev) {
+    const cls = ev.d_minus === 0 ? 'today' : ev.d_minus <= 3 ? 'imminent' : 'near';
+    const label = ev.d_minus === 0 ? '오늘' : `D-${ev.d_minus}`;
+    return `<div class="macro-event ${cls}"><span class="ev-label">${label}</span>${esc(ev.name)}</div>`;
+  }
+
+  function renderEventStrip(schedule) {
+    if (!schedule || !schedule.length) return '';
+    return `<div class="event-strip">${schedule.map(eventChip).join('')}</div>`;
+  }
+
   return { index, marketReport, stockReport, daysAgo, relDay, freshness,
-           price, signed, verdictBadge, regimeBadge, renderMD, nav, esc };
+           price, signed, verdictBadge, regimeBadge, renderMD, nav, esc,
+           eventChip, eventsByGroup, macroEventBadge, renderEventStrip, EVENT_GROUP };
 })();
