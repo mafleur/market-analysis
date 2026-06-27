@@ -21,7 +21,6 @@
   const TIP = {
     rr: "손익비 = (목표가-진입가) ÷ (진입가-손절가). 3:1 이상이어야 진입. 신규 진입 시나리오가 없으면(보유 지속·신규진입 비권고) 비워둔다.",
     atr: "ATR(14): 최근 14거래일 평균 변동폭(True Range의 14일 평균).\n쓰임 ① 손절폭 = 진입가 -1.5~2 ATR(노이즈에 안 털릴 최소폭) ② 포지션 사이징(변동성 큰 종목은 자동으로 비중↓).\n변동성 레짐(확대/축소/안정) = 현재 ATR%가 최근 60일 평균 대비 어느 방향인지. 확대 = 손절폭·갭 리스크↑, 축소 = 변동성 수축(돌파 대기).",
-    rsi: "RSI(14): 0~100. 70↑ 과매수, 30↓ 과매도.\n단독으로는 매매 근거가 약하다 — 강한 추세는 과매수에 오래 머문다. 추세·거래량의 보조 확인용, 핵심은 다이버전스다.",
     div: "RSI 다이버전스 = 가격과 RSI 방향 불일치(추세 전환 조기경보).\n강세 ▲: 가격 저점↓인데 RSI 저점↑ (하락 모멘텀 둔화).\n약세 ▼: 가격 고점↑인데 RSI 고점↓ (상승 모멘텀 둔화).\n없음: 마지막 두 스윙이 가격·RSI 같은 방향 = 모멘텀이 추세를 확인(건강).\n측정 불가: 비교할 스윙 고점/저점이 부족(신고가 직진 등). 보조 참고일 뿐 단독 매매 금지.",
     wave: "엘리엇 파동(보조 참고). 5파 상승 + 3파(A-B-C) 하락의 반복.\n1파 첫 반등 · 2파 되돌림 · 3파 가장 강함(불타기) · 4파 조정 · 5파 마지막(축소).\nA·B·C 하락 조정. 카운트는 확률 추정이며 손절선이 항상 우선.",
     revttm: "TTM = Trailing Twelve Months. 가장 최근 4개 분기를 합산한 직전 12개월 실적.\n회계연도와 무관하게 항상 최신 12개월을 보여줘 분기 발표 때마다 갱신된다.",
@@ -47,13 +46,12 @@
       `<span class="wave-step ${isUp ? "up" : "down"} ${k === cur ? "active" : ""}">${k}</span>`;
     const seq = up.map(k => cell(k, true)).join("") + `<span class="wave-sep"></span>`
       + down.map(k => cell(k, false)).join("");
-    return `<div class="callout"><b>파동</b>${refTag}${tipMark(TIP.wave)}
-      <span class="wave-label">${API.esc(r.wave)}</span>
+    return `<details class="callout wave-callout"><summary><b>파동</b>${refTag}${tipMark(TIP.wave)}<span class="wave-label">${API.esc(r.wave)}</span><span class="wave-more"></span></summary>
       <div class="wave-seq">${seq}</div>
       <div class="wave-cap">상승 임펄스 1·2·3·4·5  →  하락 조정 A·B·C  (파랑=상승 / 주황=하락, 채워진 원=현재 추정 위치)</div>
       ${r.wave_detail ? `<div class="wave-detail">${API.esc(r.wave_detail)}</div>` : ""}
       ${r.wave_chart ? `<div class="chart-box wave-chart-box"><img src="${API.esc(r.wave_chart)}" alt="엘리엇 파동 구간 차트"></div>` : ""}
-    </div>`;
+    </details>`;
   };
   // 이벤트(어닝) 게이트 배지 — 실적 발표 D-day. 임박할수록 갭 리스크 경고
   const earningsBadge = (dateStr) => {
@@ -194,7 +192,6 @@
           ${metric("Fwd PE", f.fwd_pe)}
           ${metric("목표가", f.target == null ? "" : API.price(f.target, r.market), TIP.target)}
         </div>
-        ${waveCallout(r)}
         ${(pos.entry || pos.stop || pos.trail) ? `<div class="callout">
           <b>포지션.</b>
           ${pos.entry ? ` 평단 ${API.price(pos.entry, r.market)}` : ""}
@@ -203,18 +200,52 @@
         </div>` : ""}
         ${(() => {
           const v = r.vbp || {};
-          const hasV = v.poc != null || (v.resistance && v.resistance.length) || (v.support && v.support.length);
+          const res = (v.resistance || []).slice();
+          const sup = (v.support || []).slice();
+          const hasV = v.poc != null || res.length || sup.length;
           if (!hasV) return "";
-          const lvls = (arr) => (arr && arr.length) ? arr.map(p => API.price(p, r.market)).join(" · ") : "없음";
-          return `<div class="callout"><b>매물대</b>${tipMark(TIP.vbp)}
-            ${v.poc != null ? ` POC ${API.price(v.poc, r.market)}` : ""}
-            · 위 저항 ${lvls(v.resistance)}
-            · 아래 지지 ${lvls(v.support)}</div>`;
+          const px = r.price;
+          const d = (p) => (px && p) ? (p / px - 1) * 100 : null;
+          const sgn = (x) => `${x >= 0 ? "+" : ""}${x.toFixed(1)}%`;
+          const lvl = (p) => { const dd = d(p); return `${API.price(p, r.market)}${dd == null ? "" : ` <span class="vbp-d">${sgn(dd)}</span>`}`; };
+
+          let resLine;
+          if (!res.length) {
+            resLine = `<b>위 저항</b> 없음 — 머리 위 매물벽이 없어 신고가 가속이 쉽다.`;
+          } else {
+            const near = Math.min(...res), dd = d(near);
+            const caution = (dd != null && dd <= 3) ? " 바로 위 매물벽 — 거래량 동반 돌파 확인 전 추격 주의." : "";
+            resLine = `<b>위 저항</b> 가장 가까운 ${lvl(near)}${res.length > 1 ? ` (외 ${res.length - 1})` : ""}.${caution}`;
+          }
+
+          let supLine;
+          if (!sup.length) {
+            supLine = `<b>아래 지지</b> 없음 — 이탈 시 받쳐줄 매물대가 없어 낙폭이 깊어질 수 있다.`;
+          } else {
+            const near = Math.max(...sup), dd = d(near);
+            const far = (dd != null && dd <= -15) ? ` 멀다 — 손절 이탈 시 여기까지 받침 공백.` : "";
+            supLine = `<b>아래 지지</b> 가장 가까운 ${lvl(near)}${sup.length > 1 ? ` (외 ${sup.length - 1})` : ""}.${far}`;
+          }
+
+          let pocLine = "";
+          if (v.poc != null) {
+            const dd = d(v.poc);
+            let so = "";
+            if (dd != null && dd <= -20) so = " — 현재가는 매물 희박한 미답지(air pocket), 되돌림 시 빠르게 빠질 수 있다.";
+            else if (dd != null && Math.abs(dd) <= 5) so = " — 현재가가 최대 매물대 부근, 자석처럼 횡보로 끌릴 수 있다.";
+            pocLine = `<div class="vbp-line"><b>POC</b> ${lvl(v.poc)}${so}</div>`;
+          }
+
+          return `<div class="callout vbp-callout"><div class="vbp-head"><b>매물대</b>${tipMark(TIP.vbp)}</div>
+            <div class="vbp-line">${resLine}</div>
+            <div class="vbp-line">${supLine}</div>
+            ${pocLine}</div>`;
         })()}
         ${(r.scenario && (r.scenario.up || r.scenario.down)) ? `<div class="callout"><b>시나리오.</b>
           ${r.scenario.up ? `<div class="scenario-line"><b>지지 시</b> ${API.esc(r.scenario.up)}</div>` : ""}
           ${r.scenario.down ? `<div class="scenario-line"><b>이탈 시</b> ${API.esc(r.scenario.down)}</div>` : ""}</div>` : ""}
         ${r.credit_short ? `<div class="callout"><b>수급/신용.</b> ${API.esc(r.credit_short)}</div>` : ""}
+        ${waveCallout(r)}
       </div>`;
 
     if (r.chart) html += `<div class="chart-box"><img src="${API.esc(r.chart)}" alt="${API.esc(r.name || r.ticker)} 차트"></div>`;

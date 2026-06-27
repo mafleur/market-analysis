@@ -299,8 +299,29 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .scenario-line { margin-top: 4px; }
 .scenario-line:first-of-type { margin-top: 2px; }
 
-/* ----- 엘리엇 파동 시각화 ----- */
+/* ----- 엘리엇 파동 시각화 (보조 참고 — 기본 접힘) ----- */
+.wave-callout { padding: 0; }
+.wave-callout > summary {
+  list-style: none; cursor: pointer; padding: 12px 14px;
+  display: flex; align-items: center; gap: 2px;
+}
+.wave-callout > summary::-webkit-details-marker { display: none; }
+.wave-callout > summary > .wave-more {
+  margin-left: auto; font-size: 11px; color: var(--text-3);
+}
+.wave-callout > summary > .wave-more::after { content: "펼치기"; }
+.wave-callout[open] > summary > .wave-more::after { content: "접기"; }
+.wave-callout > .wave-seq,
+.wave-callout > .wave-cap,
+.wave-callout > .wave-detail,
+.wave-callout > .wave-chart-box { margin-left: 14px; margin-right: 14px; }
+.wave-callout > .wave-chart-box { margin-bottom: 14px; }
 .wave-label { font-weight: 800; margin-left: 6px; color: var(--text); }
+
+/* ----- 매물대 코멘트 ----- */
+.vbp-head { margin-bottom: 6px; }
+.vbp-line { margin-top: 4px; line-height: 1.6; }
+.vbp-d { font-weight: 700; color: var(--text-3); font-size: 12.5px; }
 .wave-seq { display: flex; align-items: center; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
 .wave-step {
   width: 26px; height: 26px; border-radius: 50%; display: inline-flex;
