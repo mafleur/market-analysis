@@ -307,8 +307,12 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 }
 .wave-callout > summary::-webkit-details-marker { display: none; }
 .wave-callout > summary > .wave-more {
-  margin-left: auto; font-size: 11px; color: var(--text-3);
+  margin-left: auto; font-size: 11px; font-weight: 700; color: var(--brand);
+  background: var(--brand-soft); border-radius: 999px; padding: 3px 11px;
+  display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
 }
+.wave-callout > summary > .wave-more::before { content: "▸"; font-size: 10px; }
+.wave-callout[open] > summary > .wave-more::before { content: "▾"; }
 .wave-callout > summary > .wave-more::after { content: "펼치기"; }
 .wave-callout[open] > summary > .wave-more::after { content: "접기"; }
 .wave-callout > .wave-seq,
