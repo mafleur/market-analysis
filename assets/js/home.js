@@ -119,7 +119,7 @@
             ${s.held ? `<span class="badge brand">보유</span>` : ``}
           </div>
           <div class="ticker">${API.esc(tk)}</div>
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;flex-wrap:wrap">
             <div class="price">${API.price(s.price, s.market)}</div>
             ${API.verdictBadge(s.verdict, s.verdict_label)}
           </div>

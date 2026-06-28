@@ -59,7 +59,9 @@ const API = (() => {
   };
   function verdictBadge(v, label) {
     const m = VERDICT[v] || { cls: "ghost", txt: v || "—" };
-    return `<span class="badge ${m.cls}"><span class="led"></span>${label || m.txt}</span>`;
+    const txt = label || m.txt;
+    const long = txt.length > 8;  // 긴 전략 문구는 알약 대신 둥근 사각 태그
+    return `<span class="badge ${m.cls}${long ? " long" : ""}">${long ? "" : `<span class="led"></span>`}${esc(txt)}</span>`;
   }
 
   // ----- 시장 레짐 배지 -----

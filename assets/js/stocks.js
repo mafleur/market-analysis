@@ -19,7 +19,7 @@
 
   // 지표 해설 (툴팁 본문)
   const TIP = {
-    rr: "손익비 = (목표가-진입가) ÷ (진입가-손절가). 3:1 이상이어야 진입. 신규 진입 시나리오가 없으면(보유 지속·신규진입 비권고) 비워둔다.",
+    rr: "손익비 = (목표가-진입가) ÷ (진입가-손절가). 3:1 이상이어야 진입. 신규 진입 시나리오가 없으면(보유 지속·신규진입 비권고) 비워둔다.\n보유 종목은 현재가 추격 진입 기준 손익비를 '추격 X:1'로 표시한다(분석가 판단 목표 기준 — 피보 확장·매물대 등). 3:1 미만이면 추격은 비권고.",
     atr: "ATR(14): 최근 14거래일 평균 변동폭(True Range의 14일 평균).\n쓰임 ① 손절폭 = 진입가 -1.5~2 ATR(노이즈에 안 털릴 최소폭) ② 포지션 사이징(변동성 큰 종목은 자동으로 비중↓).\n변동성 레짐(확대/축소/안정) = 현재 ATR%가 최근 60일 평균 대비 어느 방향인지. 확대 = 손절폭·갭 리스크↑, 축소 = 변동성 수축(돌파 대기).",
     div: "RSI 다이버전스 = 가격과 RSI 방향 불일치(추세 전환 조기경보).\n강세 ▲: 가격 저점↓인데 RSI 저점↑ (하락 모멘텀 둔화).\n약세 ▼: 가격 고점↑인데 RSI 고점↓ (상승 모멘텀 둔화).\n없음: 마지막 두 스윙이 가격·RSI 같은 방향 = 모멘텀이 추세를 확인(건강).\n측정 불가: 비교할 스윙 고점/저점이 부족(신고가 직진 등). 보조 참고일 뿐 단독 매매 금지.",
     wave: "엘리엇 파동(보조 참고). 5파 상승 + 3파(A-B-C) 하락의 반복.\n1파 첫 반등 · 2파 되돌림 · 3파 가장 강함(불타기) · 4파 조정 · 5파 마지막(축소).\nA·B·C 하락 조정. 카운트는 확률 추정이며 손절선이 항상 우선.",
@@ -173,7 +173,13 @@
         </div>
         ${r.summary ? `<div class="callout"><b>한 줄 결론.</b> ${API.esc(r.summary)}</div>` : ""}
         <div class="metrics">
-          ${metric("손익비", r.rr == null ? "—" : `${r.rr}:1`, TIP.rr + (r.rr == null && r.rr_note ? `\n\n현재 비어있는 이유: ${r.rr_note}` : ""))}
+          ${(() => {
+            let val = "—", note = "";
+            if (r.rr != null) { val = `${r.rr}:1`; note = r.rr_note ? `\n\n이 종목: ${r.rr_note}` : ""; }
+            else if (r.rr_chase != null) { val = `추격 ${r.rr_chase}:1`; note = r.rr_note ? `\n\n추격(보유 종목 신규 진입) 기준: ${r.rr_note}` : ""; }
+            else if (r.rr_note) { note = `\n\n현재 비어있는 이유: ${r.rr_note}`; }
+            return metric("손익비", val, TIP.rr + note);
+          })()}
           ${metric(`vs시장 3M·${benchLabel(r.market)}`, API.signed(r.rs_3m), vsTip(r.market))}
           ${metric(`vs시장 6M·${benchLabel(r.market)}`, API.signed(r.rs_6m), vsTip(r.market))}
           ${metric("vs섹터 3M", r.rs_sector_3m == null ? "" : `${API.signed(r.rs_sector_3m)}${r.sector_etf ? ` (${API.esc(r.sector_etf)})` : ""}`)}
@@ -190,7 +196,7 @@
           ${metric("매출(TTM)", f.rev_ttm, TIP.revttm)}
           ${metric("영업마진", f.op_margin == null ? "" : f.op_margin + "%")}
           ${metric("Fwd PE", f.fwd_pe)}
-          ${metric("목표가", f.target == null ? "" : API.price(f.target, r.market), TIP.target)}
+          ${metric("목표가" + refTag, f.target == null ? "" : API.price(f.target, r.market), TIP.target)}
         </div>
         ${(pos.entry || pos.stop || pos.trail) ? `<div class="callout">
           <b>포지션.</b>
@@ -233,7 +239,7 @@
             let so = "";
             if (dd != null && dd <= -20) so = " — 현재가는 매물 희박한 미답지(air pocket), 되돌림 시 빠르게 빠질 수 있다.";
             else if (dd != null && Math.abs(dd) <= 5) so = " — 현재가가 최대 매물대 부근, 자석처럼 횡보로 끌릴 수 있다.";
-            pocLine = `<div class="vbp-line"><b>POC</b> ${lvl(v.poc)}${so}</div>`;
+            pocLine = `<div class="vbp-line"><b>최대 매물대(POC)</b> ${lvl(v.poc)}${so}</div>`;
           }
 
           return `<div class="callout vbp-callout"><div class="vbp-head"><b>매물대</b>${tipMark(TIP.vbp)}</div>
@@ -244,7 +250,7 @@
         ${(r.scenario && (r.scenario.up || r.scenario.down)) ? `<div class="callout"><b>시나리오.</b>
           ${r.scenario.up ? `<div class="scenario-line"><b>지지 시</b> ${API.esc(r.scenario.up)}</div>` : ""}
           ${r.scenario.down ? `<div class="scenario-line"><b>이탈 시</b> ${API.esc(r.scenario.down)}</div>` : ""}</div>` : ""}
-        ${r.credit_short ? `<div class="callout"><b>수급/신용.</b> ${API.esc(r.credit_short)}</div>` : ""}
+        ${r.credit_short ? `<div class="callout"><b>수급/신용.</b> ${API.esc(r.credit_short.replace(/^\s*KIS\s*실측\s*[—\-:]\s*/, ""))}</div>` : ""}
         ${waveCallout(r)}
       </div>`;
 

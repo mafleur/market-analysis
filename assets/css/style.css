@@ -121,6 +121,11 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .badge.slate { background: var(--slate-soft); color: var(--slate); }
 .badge.ghost { background: var(--surface-2); color: var(--text-2); }
 .badge .led { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+/* 긴 verdict 라벨: 알약(999px) 대신 둥근 사각 태그로 — 줄바꿈 시에도 단정하게 */
+.badge.long {
+  border-radius: 9px; white-space: normal; text-align: left;
+  align-items: flex-start; line-height: 1.45; padding: 5px 11px; max-width: 100%;
+}
 
 .tag-mkt { font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 6px; letter-spacing: .03em; }
 .tag-mkt.KR { background: #eef4ff; color: #2d5fd0; }
@@ -225,7 +230,7 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 }
 .macro-groups {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 16px 24px;
 }
 .macro-group-label {
@@ -233,11 +238,11 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
   letter-spacing: .02em;
 }
 .macro-item {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 3px 0; font-size: 13px;
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 14px; padding: 3px 0; font-size: 13px;
 }
-.macro-item .k { color: var(--text-2); }
-.macro-item .v { font-weight: 700; font-variant-numeric: tabular-nums; }
+.macro-item .k { color: var(--text-2); white-space: nowrap; }
+.macro-item .v { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
 .macro-item .v.neg { color: var(--red); }
 .macro-item .v.pos { color: var(--green); }
 
