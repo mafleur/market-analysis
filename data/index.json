@@ -1,8 +1,9 @@
 {
-  "generated_at": "2026-06-26T15:46:29",
+  "generated_at": "2026-07-02T01:05:30",
   "market": {
-    "latest": "2026-06-26",
+    "latest": "2026-07-02",
     "history": [
+      "2026-07-02",
       "2026-06-26",
       "2026-06-25",
       "2026-06-23",
@@ -15,15 +16,16 @@
       "name": "SK하이닉스",
       "market": "KR",
       "held": true,
-      "latest": "2026-06-25",
+      "latest": "2026-06-30",
       "verdict": "HOLD",
-      "verdict_label": "보유 지속 + 트레일링 (눌림목 신규진입 조건부)",
-      "price": 2917000,
+      "verdict_label": null,
+      "price": 2650000,
       "is_leader": true,
       "entry": null,
-      "stop": 2389500,
-      "target": null,
+      "stop": 2437800,
+      "target": 3105259,
       "history": [
+        "2026-06-30",
         "2026-06-25",
         "2026-06-19",
         "2026-06-18",
@@ -34,15 +36,16 @@
       "name": "삼성전자",
       "market": "KR",
       "held": true,
-      "latest": "2026-06-19",
+      "latest": "2026-06-30",
       "verdict": "HOLD",
-      "verdict_label": "보유 지속 + 트레일링",
-      "price": 354000,
+      "verdict_label": null,
+      "price": 334000,
       "is_leader": true,
       "entry": null,
-      "stop": 324450,
-      "target": null,
+      "stop": 305000,
+      "target": 457103,
       "history": [
+        "2026-06-30",
         "2026-06-19",
         "2026-06-18",
         "2026-06-17"
@@ -96,6 +99,22 @@
         "2026-06-19"
       ]
     },
+    "126340.KQ": {
+      "name": "비나텍",
+      "market": "KR",
+      "held": true,
+      "latest": "2026-06-30",
+      "verdict": "TRIM",
+      "verdict_label": null,
+      "price": 82900,
+      "is_leader": false,
+      "entry": 158123,
+      "stop": 80200,
+      "target": 90425,
+      "history": [
+        "2026-06-30"
+      ]
+    },
     "285A.T": {
       "name": "키오시아 (Kioxia Holdings)",
       "market": "JP",
@@ -116,15 +135,16 @@
       "name": "Bloom Energy",
       "market": "US",
       "held": false,
-      "latest": "2026-06-22",
+      "latest": "2026-07-01",
       "verdict": "AVOID",
-      "verdict_label": "신규 추격 진입 불가 (손익비 미달)",
-      "price": 338.63,
+      "verdict_label": "신규 진입 불가 — 손익비 0.78:1 (3:1 게이트 미달), 목표 여력<손절폭",
+      "price": 307.33,
       "is_leader": true,
-      "entry": 300,
-      "stop": 253,
-      "target": 445,
+      "entry": null,
+      "stop": 257.81,
+      "target": 345.85,
       "history": [
+        "2026-07-01",
         "2026-06-22"
       ]
     },
@@ -132,15 +152,16 @@
       "name": "Fluence Energy",
       "market": "US",
       "held": true,
-      "latest": "2026-06-22",
-      "verdict": "HOLD",
-      "verdict_label": "보유 유지 + 트레일링 스탑 관리",
-      "price": 25.16,
-      "is_leader": true,
-      "entry": 28.5536,
-      "stop": 22.0,
-      "target": null,
+      "latest": "2026-07-01",
+      "verdict": "TRIM",
+      "verdict_label": null,
+      "price": 19.1,
+      "is_leader": false,
+      "entry": null,
+      "stop": 18.26,
+      "target": 21.04,
       "history": [
+        "2026-07-01",
         "2026-06-22"
       ]
     }
@@ -148,28 +169,29 @@
   "holdings": [
     "000660.KS",
     "005930.KS",
+    "126340.KQ",
     "FLNC"
   ],
   "indices": [
     {
       "name": "S&P 500",
-      "value": "7,357.49",
-      "change": "-0.01%"
+      "value": "7,514.09",
+      "change": "+0.20%"
     },
     {
       "name": "NASDAQ",
-      "value": "25,358.60",
-      "change": "-0.46%"
+      "value": "26,143.44",
+      "change": "-0.27%"
     },
     {
       "name": "KOSPI",
-      "value": "8,318.30",
-      "change": "-6.85%"
+      "value": "8,476.48",
+      "change": "+0.97%"
     },
     {
       "name": "KOSDAQ",
-      "value": "848.14",
-      "change": "-4.47%"
+      "value": "916.18",
+      "change": "-0.48%"
     }
   ],
   "macro_snapshot": [
@@ -178,15 +200,31 @@
       "items": [
         [
           "CPI YoY",
-          "+4.3% (+0.3%p 가속)"
+          "+4.3%(가속)"
         ],
         [
-          "Core PCE YoY",
-          "+3.4% (21개월 최고)"
+          "Core CPI",
+          "+3.0%(보합)"
+        ],
+        [
+          "PCE",
+          "+4.1%(가속)"
+        ],
+        [
+          "Core PCE",
+          "+3.4%(가속)"
         ],
         [
           "PPI YoY",
-          "+13.1% (+3.7%p 급가속)"
+          "+13.1%(급가속)"
+        ],
+        [
+          "PPI MoM",
+          "+3.47%"
+        ],
+        [
+          "CPI MoM",
+          "+0.47%"
         ]
       ]
     },
@@ -195,49 +233,94 @@
       "items": [
         [
           "실업률",
-          "4.30% (보합)"
+          "4.30%(보합)"
         ],
         [
           "신규실업청구",
           "215K"
         ],
         [
+          "시간당임금 YoY",
+          "+3.6%(둔화)"
+        ],
+        [
           "실질임금 YoY",
-          "-0.58% (음수)"
+          "-0.58%(음수)"
+        ],
+        [
+          "NFP(5월 실적)",
+          "+172K(컨센 85K 상회)"
         ]
       ]
     },
     {
-      "group": "유동성/금리",
+      "group": "유동성",
       "items": [
         [
-          "Fed 금리",
+          "Fed 유효금리",
           "3.63%"
         ],
         [
-          "10Y / 2Y",
-          "4.45% / 4.19%"
+          "초과유동성",
+          "-0.5%(음수)"
         ],
         [
-          "초과유동성",
-          "-0.5% (음수)"
+          "M2 YoY",
+          "+5.6%(가속)"
+        ],
+        [
+          "Fed B/S",
+          "$6.74T(QT)"
         ]
       ]
     },
     {
-      "group": "환율/심리",
+      "group": "채권/환율",
       "items": [
         [
-          "원/달러",
-          "1,544.08"
+          "US10Y",
+          "4.463%"
         ],
         [
-          "엔/달러",
-          "161.62"
+          "US2Y",
+          "4.070%"
         ],
         [
-          "F&G 미/한",
-          "25.5 / 24.9 (공포)"
+          "10Y-2Y",
+          "+0.302%"
+        ],
+        [
+          "실질10Y",
+          "2.180%"
+        ],
+        [
+          "DXY",
+          "101.387"
+        ],
+        [
+          "원달러",
+          "1,550.47"
+        ],
+        [
+          "엔달러",
+          "162.404"
+        ]
+      ]
+    },
+    {
+      "group": "선행지표",
+      "items": [
+        [
+          "구리 4주/13주",
+          "-5.2% / +13.2%"
+        ],
+        [
+          "신규주문-재고",
+          "+662,726(양수)"
+        ],
+        [
+          "VIX / 콘탱고",
+          "16.16 / -2.74"
         ]
       ]
     }
@@ -248,56 +331,56 @@
       "name": "미국 고용보고서(NFP)",
       "type": "employment",
       "date": "2026-07-02",
-      "d_minus": 6
+      "d_minus": 0
     },
     {
       "id": "us_cpi",
       "name": "미국 CPI",
       "type": "inflation",
       "date": "2026-07-14",
-      "d_minus": 18
+      "d_minus": 12
     },
     {
       "id": "us_ppi",
       "name": "미국 PPI",
       "type": "inflation",
       "date": "2026-07-15",
-      "d_minus": 19
+      "d_minus": 13
     },
     {
       "id": "bok",
       "name": "한국은행 금리결정",
       "type": "rate",
       "date": "2026-07-16",
-      "d_minus": 20
+      "d_minus": 14
     },
     {
       "id": "ecb",
       "name": "ECB 금리결정",
       "type": "rate",
       "date": "2026-07-23",
-      "d_minus": 27
+      "d_minus": 21
     },
     {
       "id": "fomc",
       "name": "FOMC 금리결정",
       "type": "rate",
       "date": "2026-07-29",
-      "d_minus": 33
+      "d_minus": 27
     },
     {
       "id": "boj",
       "name": "BOJ 금리결정",
       "type": "rate",
       "date": "2026-07-31",
-      "d_minus": 35
+      "d_minus": 29
     },
     {
       "id": "us_pce",
       "name": "미국 PCE 물가지수",
       "type": "inflation",
       "date": "2026-07-31",
-      "d_minus": 35
+      "d_minus": 29
     }
   ]
 }
