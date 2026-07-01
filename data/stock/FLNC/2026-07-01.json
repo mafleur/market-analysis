@@ -44,11 +44,11 @@
   "wave": "C파",
   "wave_detail": "5/11 고 25.23→6/2 고 27.91→6/22 고 25.19로 고점 낮아지며 A-B-C 하락. 임펄스 6.75↔32.23 대비 51.5% 되돌림(50% 19.49 통과, 다음 61.8% 16.48).",
   "fundamentals": {
-    "market_cap": null,
-    "rev_ttm": "TTM 2.6B (YoY +7.7%)",
-    "op_margin": null,
-    "fwd_pe": null,
-    "target": null
+    "market_cap": "3.5B",
+    "rev_ttm": "2.6B (YoY+7.7%)",
+    "op_margin": -8.4,
+    "fwd_pe": 94.7,
+    "target": 18.59
   },
   "position": {
     "entry": 28.5536,

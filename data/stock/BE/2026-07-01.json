@@ -36,11 +36,11 @@
   "wave": "5파",
   "wave_detail": "3/30 저 119.51에서 시작한 대임펄스 후기. 5/21 고 307.88, 6/10 저 234.23(4파), 6/22 고 345.85(5파 시도). 현재 307.33은 고점 -11.9% 되돌림 — 신규 진입 타이밍으로 늦음.",
   "fundamentals": {
-    "market_cap": null,
-    "rev_ttm": "TTM 2.4B (YoY +130.4%)",
-    "op_margin": null,
-    "fwd_pe": null,
-    "target": null
+    "market_cap": "87.4B",
+    "rev_ttm": "2.4B (YoY+130%)",
+    "op_margin": 9.6,
+    "fwd_pe": 70.25,
+    "target": 266.93
   },
   "position": {
     "entry": null,
