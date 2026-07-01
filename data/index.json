@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T01:05:30",
+  "generated_at": "2026-07-02T01:15:12",
   "market": {
     "latest": "2026-07-02",
     "history": [
@@ -21,7 +21,7 @@
       "verdict_label": null,
       "price": 2650000,
       "is_leader": true,
-      "entry": null,
+      "entry": 2042687,
       "stop": 2437800,
       "target": 3105259,
       "history": [
@@ -41,7 +41,7 @@
       "verdict_label": null,
       "price": 334000,
       "is_leader": true,
-      "entry": null,
+      "entry": 341283,
       "stop": 305000,
       "target": 457103,
       "history": [
@@ -103,15 +103,16 @@
       "name": "비나텍",
       "market": "KR",
       "held": true,
-      "latest": "2026-06-30",
-      "verdict": "TRIM",
+      "latest": "2026-07-01",
+      "verdict": "HOLD",
       "verdict_label": null,
-      "price": 82900,
+      "price": 107700,
       "is_leader": false,
       "entry": 158123,
-      "stop": 80200,
-      "target": 90425,
+      "stop": 90425,
+      "target": 132310,
       "history": [
+        "2026-07-01",
         "2026-06-30"
       ]
     },
@@ -157,7 +158,7 @@
       "verdict_label": null,
       "price": 19.1,
       "is_leader": false,
-      "entry": null,
+      "entry": 28.5536,
       "stop": 18.26,
       "target": 21.04,
       "history": [
